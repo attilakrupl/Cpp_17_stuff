@@ -2,7 +2,14 @@
 
 #include <string>
 
+class Connection;
 
+namespace std
+{
+	template <> struct tuple_size<Connection> : std::integral_constant<size_t, 2> { };
+	template <> struct tuple_element<0, Connection> { using type = std::string; };
+	template <> struct tuple_element<1, Connection> { using type = std::string; };
+};
 
 class Connection
 {
@@ -45,11 +52,4 @@ private:
 	std::string m_name;
 	std::string m_address;
 	bool m_isValid = false;
-};
-
-namespace std
-{
-	template <> struct tuple_size<Connection> : std::integral_constant<size_t, 2> { };
-	template <> struct tuple_element<0, Connection> { using type = std::string; };
-	template <> struct tuple_element<1, Connection> { using type = std::string; };
 };
